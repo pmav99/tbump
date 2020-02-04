@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.7]
+        os: [windows-latest]
 
     steps:
 
@@ -27,14 +27,15 @@ jobs:
         python -m poetry config virtualenvs.create false
         python -m poetry install
 
-
     - name: Run tests
       run: |
         # tests run git commands, and they need
         # a proper git identity for that
         git config --global user.email "test@tbump-tests.com"
         git config --global user.name "Tasty Test"
-        python -m poetry run pytest --cov . --cov-report xml
+        # Are the tests failures caused by the git config?
+        git config -l
+        python -m poetry run pytest -vs tbump/test/test_hooks.py -k working_hook
 
     - name: Send coverage to codecov.io
       uses: codecov/codecov-action@v1

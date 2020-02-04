@@ -24,6 +24,7 @@ def add_hook(test_repo: Path, name: str, cmd: str, after_push: bool = False) -> 
     parsed[key].append({"cmd": cmd, "name": name})
 
     cfg_path.write_text(toml.dumps(parsed))
+    print("In add_hook, cfg is now", cfg_path.text())
     tbump.git.run_git(test_repo, "add", ".")
     tbump.git.run_git(test_repo, "commit", "--message", "update hooks")
 
