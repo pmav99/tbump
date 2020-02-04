@@ -1,5 +1,6 @@
 from typing import Any, Iterator
 import os
+import cli_ui
 
 from path import Path
 import pytest
@@ -26,6 +27,11 @@ def tmp_path(tmpdir: Any) -> Path:
 def test_data_path() -> Path:
     this_dir = Path(__file__).abspath().parent
     return this_dir / "data"
+
+
+@pytest.fixture(autouse=True, scope="session")
+def activate_debug_logs():
+    cli_ui.setup(verbose=True)
 
 
 @pytest.fixture(autouse=True, scope="session")

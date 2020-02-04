@@ -37,8 +37,7 @@ def run_git(working_path: Path, *cmd: str, verbose: bool = False) -> None:
     Raise GitCommandError if return code is non-zero.
     """
     cmd_list = list(cmd)
-    if verbose:
-        print_git_command(cmd_list)
+    print_git_command(cmd_list)
     git_cmd = list(cmd)
     git_cmd.insert(0, "git")
 
