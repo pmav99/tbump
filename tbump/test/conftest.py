@@ -77,4 +77,5 @@ def setup_remote(tmp_path: Path) -> Path:
 def test_repo(tmp_path: Path, test_data_path: Path) -> Path:
     res = setup_repo(tmp_path, test_data_path)
     setup_remote(tmp_path)
+    print("test_repo is set up")
     return res

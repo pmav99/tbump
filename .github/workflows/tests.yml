@@ -30,11 +30,14 @@ jobs:
         python -m poetry config virtualenvs.create false
         python -m poetry install
 
-    - name: Run tests
+    - name: Setup git config
       run: |
         git config --global user.email "test@tbump-tests.com"
         git config --global user.name "Tasty Test"
         git config -l
+
+    - name: Run pytest
+      run: |
         python -m poetry run pytest -p no:sugar --assert=plain -vs tbump/test/test_hooks.py -k working_hook
 
     - name: Send coverage to codecov.io

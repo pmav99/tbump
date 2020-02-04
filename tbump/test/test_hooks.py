@@ -13,6 +13,7 @@ def add_hook(test_repo: Path, name: str, cmd: str, after_push: bool = False) -> 
     """ Patch the configuration file so that we can also test hooks.
 
     """
+    print("entering add_hook")
     cfg_path = test_repo / "tbump.toml"
     parsed = toml.loads(cfg_path.text())
     if after_push:
@@ -42,6 +43,7 @@ def add_after_hook(test_repo: Path) -> None:
 
 
 def test_working_hook(test_repo: Path) -> None:
+    print("starting test_working_hook")
     add_working_hook(test_repo)
     tbump.main.main(["-C", test_repo, "1.2.41-alpha-2", "--non-interactive"])
 
