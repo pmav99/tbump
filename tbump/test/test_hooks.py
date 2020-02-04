@@ -25,7 +25,7 @@ def add_hook(test_repo: Path, name: str, cmd: str, after_push: bool = False) -> 
     print("cmd is", cmd)
     parsed[key].append({"cmd": cmd, "name": name})
 
-    with cfg_path.open() as f:
+    with cfg_path.open("w") as f:
         toml.dump(parsed, f)
 
     print("In add_hook, cfg is now", cfg_path.text())
@@ -34,6 +34,7 @@ def add_hook(test_repo: Path, name: str, cmd: str, after_push: bool = False) -> 
 
 
 def add_working_hook(test_repo: Path) -> None:
+    print("add_working_hook: sys.executable", sys.executable)
     add_hook(test_repo, "fake yarn", sys.executable + " yarn.py")
 
 
