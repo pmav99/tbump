@@ -35,7 +35,7 @@ jobs:
         git config --global user.email "test@tbump-tests.com"
         git config --global user.name "Tasty Test"
         git config -l
-        python -m poetry run pytest -vs tbump/test/test_hooks.py -k working_hook
+        python -m poetry run pytest -p no:sugar --assert=plain -vs tbump/test/test_hooks.py -k working_hook
 
     - name: Send coverage to codecov.io
       uses: codecov/codecov-action@v1
