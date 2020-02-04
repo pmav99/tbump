@@ -22,9 +22,12 @@ def add_hook(test_repo: Path, name: str, cmd: str, after_push: bool = False) -> 
         key = "before_commit"
     if key not in parsed:
         parsed[key] = list()
+    print("cmd is", cmd)
     parsed[key].append({"cmd": cmd, "name": name})
 
-    cfg_path.write_text(toml.dumps(parsed))
+    with cfg_path.open() as f:
+        toml.dump(parsed, f)
+
     print("In add_hook, cfg is now", cfg_path.text())
     tbump.git.run_git(test_repo, "add", ".")
     tbump.git.run_git(test_repo, "commit", "--message", "update hooks")
@@ -43,7 +46,6 @@ def add_after_hook(test_repo: Path) -> None:
 
 
 def test_working_hook(test_repo: Path) -> None:
-    print("starting test_working_hook")
     add_working_hook(test_repo)
     tbump.main.main(["-C", test_repo, "1.2.41-alpha-2", "--non-interactive"])
 
